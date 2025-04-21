@@ -2,22 +2,17 @@ import BlogCard from "@/components/blog/card";
 import Wrapper from "@/components/wrapper";
 import { IBlog } from "@/types/blog";
 
-
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-    title: "Home",
-    description: "Home Page",
-}
-
 export default async function Home() {
-  const res = await fetch("https://buffbasket-us.backendless.app/api/data/Blogs?loadRelations=author");
+  const res = await fetch(
+    "https://saucysmile-us.backendless.app/api/data/Blogs?loadRelations=author"
+  );
   const data: IBlog[] = await res.json();
-  console.log(data);
 
   return (
     <Wrapper>
-      <div className="py-4 sm:py-8">
+    {/* <div className="px-10 pt-[80px] bg-white grid w-full p-4 grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-2.5"> */}
+
+      <div className="py-4 pt-[80px] sm:py-8">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-300 md:my-2 text-shadow">
           Artikel <span className="text-green-700">Terkini</span>
         </h2>
@@ -27,6 +22,6 @@ export default async function Home() {
           })}
         </div>
       </div>
-    </Wrapper>  
+    </Wrapper>
   );
 }
