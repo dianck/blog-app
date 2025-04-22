@@ -47,7 +47,7 @@ export default function Navbar({ user }: { user?: User }) {
           </>
         ) : (
           <div className="flex gap-5">
-            <Link href="/login" className="bg-orange-700 px-3 rounded-xl text-sm hover:bg-orange-800">Login</Link>
+            <Link href="/login" className="bg-orange-700 px-3 py-2 rounded-lg text-sm hover:bg-orange-800">Login</Link>
             <Link href="/register" className="bg-white text-black border px-3 py-2 rounded-lg text-sm hover:bg-gray-100">Register</Link>
           </div>
         )}
