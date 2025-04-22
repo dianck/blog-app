@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import RichTextEditor from "./rte";
 import { toast } from "react-toastify";
 import { BlogInput } from "@/types/blog";
+import { useSession } from "next-auth/react";
+import axios from "@/lib/axios";
 
 const blogSchema = Yup.object({
   title: Yup.string()
@@ -27,18 +29,27 @@ const initialValues: BlogInput = {
 };
 
 export default function FormBlog() {
+  const session = useSession();
   const onCreate = async (
     values: BlogInput,
     actions: FormikHelpers<BlogInput>
   ) => {
     try {
-      console.log(values);
+      const { data } = await axios .post("/data/Blogs", values, {
+        headers: { "user-token": session.data?.userToken },
+      });
+
+      await axios.post(`/data/Blogs/${data.objectId}/author`, [session.data?.user.objectId], {
+        headers: { "user-token": session.data?.userToken },
+      });
+
       actions.resetForm();
       toast.success("Blog Created!");
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -109,26 +120,29 @@ export default function FormBlog() {
               )}
             </div>
             <div>
-              <label
-                htmlFor="content"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Content
-              </label>
-              <RichTextEditor setFieldValue={setFieldValue} />
-              {touched.content && errors.content && (
-                <div className="text-red-500 text-[12px]">{errors.content}</div>
-              )}
-            </div>
-            <div className="flex sm:justify-end">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full h-[40px] disabled:cursor-not-allowed disabled:bg-[#8a8a8b] sm:w-[120px] text-[#f5f5f7] bg-[#383839] hover:bg-[#595959] rounded-lg"
-              >
-                {isSubmitting ? "Loading.. " : "Submit"}
-              </button>
-            </div>
+  <label
+    htmlFor="content"
+    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+  >
+    Content
+  </label>
+  <RichTextEditor
+    setFieldValue={setFieldValue}
+  />
+  {touched.content && errors.content && (
+    <div className="text-red-500 text-[12px]">{errors.content}</div>
+  )}
+</div>
+
+<div className="flex justify-start mt-[60px]">
+  <button
+    type="submit"
+    disabled={isSubmitting}
+    className="w-full h-[40px] cursor-pointer disabled:cursor-not-allowed  disabled:bg-[#8a8a8b] sm:w-[120px] text-[#f5f5f7] bg-[#383839] hover:bg-[#595959] rounded-lg"
+  >
+    {isSubmitting ? "Loading.. " : "Submit"}
+  </button>
+</div>
           </Form>
         );
       }}

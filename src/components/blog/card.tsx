@@ -7,13 +7,11 @@ export default function BlogCard({ blog }: { blog: IBlog }) {
   return (
     <Link href={`/blog/${blog.objectId}`}>
       <div className="flex flex-row-reverse items-center justify-between w-full max-sm:py-4 max-sm:border-b max-sm:border-b-gray-300 sm:block">
-        <div className="h-[50px] w-[75px] sm:h-[150px] sm:w-full relative rounded-md overflow-hidden">
+        <div className="h-[50px] w-[50px] sm:h-[150px] sm:w-full relative rounded-md overflow-hidden">
           <Image
             src={blog.thumbnail}
             alt={blog.title}
             fill
-            // width={200}
-            // height={100}
             priority
             className="object-fill hover:scale-110"
           />

@@ -81,7 +81,7 @@ export default function FormLogin(){
                     const {touched, errors, isSubmitting} = props;
                     return(
                        <Form>
-                            <div className="flex flex-col">
+                            <div className=" flex flex-col">
                                 <label htmlFor="login" className="text-md">Email</label>
                                 <Field 
                                     name="login" 

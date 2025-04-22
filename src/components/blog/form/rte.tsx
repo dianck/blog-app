@@ -60,11 +60,15 @@ export default function RichTextEditor({ setFieldValue }: RichTextProps) {
   }, []);
 
   return (
-    <ReactQuill
-      value={value}
-      onChange={handleChange}
-      modules={modules}
-      formats={formats}
-    />
+    <div className="h-[180px]">
+      <ReactQuill
+        value={value}
+        onChange={handleChange}
+        modules={modules}
+        formats={formats}
+        className="h-full"
+      />
+    </div>
+
   );
 }

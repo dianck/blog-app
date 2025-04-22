@@ -40,18 +40,25 @@ export default async function Page({params}: {params: Promise< { id: string} >})
                         {/* </div> */}
                     </div>
 
-                    <div className="h-[400px] max-md:h-[300px] max-sm:h-[250px] w-full relative my-6">
-                        <Image
-                        src={blog.thumbnail}
-                        alt={blog.title}
-                        fill
-                        // width={200}
-                        // height={100}
-                        className="object-fill"
-                        priority
-                        />
+                    <div className="w-full flex justify-center my-6">
+                        <div className="w-full md:w-1/2 max-w-[1200px]">
+                            <Image
+                            src={blog.thumbnail}
+                            alt={blog.title}
+                            width={1200} // ganti sesuai dimensi asli gambar
+                            height={675} // sesuaikan dengan rasio
+                            layout="responsive"
+                            className="rounded-lg object-contain"
+                            priority
+                            />
+                        </div>
                     </div>
-                    <div>{blog.content}</div>
+
+
+                    <div>
+                        {/* <div>{blog.content}</div> */}
+                        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                    </div>
                 </div>
 
             </div>
