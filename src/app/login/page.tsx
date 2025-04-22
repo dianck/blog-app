@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page(){
     return(
         <div className="w-screen h-screen flex justify-center items-center">
-            <div className="w-[250px]">.
+            <div className="w-[250px]">
                 <h2 className="text-2xl font-bold text-start mb-5">Sign In</h2>
                 <FormLogin />
             </div>

@@ -21,27 +21,19 @@ export const metadata: Metadata = {
   description: "Blogger Web Application",
 };
 
-// ✅ RootLayout tetap async untuk ambil auth session
+// ✅ Ubah function jadi async
 export default async function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
-  const session = await auth(); // ambil session user
+}>) {
+  const data = await auth(); // Ambil data user dari server
 
   return (
     <html lang="en">
-      <body
-        className={`
-          ${geistSans.variable} 
-          ${geistMono.variable} 
-          antialiased 
-          bg-white 
-          text-black
-        `}
-      >
-        <SessionProvider session={session}>
-          <Navbar user={session?.user} />
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <SessionProvider>
+          <Navbar user={data?.user} />
           {children}
         </SessionProvider>
 
@@ -49,9 +41,9 @@ export default async function RootLayout({
           position="bottom-right"
           autoClose={3000}
           draggable
+          theme="dark"
           closeOnClick
           transition={Bounce}
-          theme="light" // ✅ Ganti ke 'light' jika tidak ingin dark mode
         />
       </body>
     </html>
